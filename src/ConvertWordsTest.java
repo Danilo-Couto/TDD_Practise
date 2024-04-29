@@ -19,5 +19,11 @@ public class ConvertWordsTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    public void testAllUpperCase() {
+        String original = "CPF";
+        String result = ConvertWords.converterCamelCase(original);
+        assertEquals(original, result);
+    }
 
 }

@@ -1,21 +1,22 @@
 public class ConvertWords {
 
-//     1 e 2o caso: separa strings simples e compostas
+    // 3o caso: retorna a string completa se for tudo Upper Case
     public static String converterCamelCase(String original) {
-
         StringBuilder tempString = new StringBuilder();
-        char[] originalToArray = original.toCharArray(); // string é iterable
+        char[] originalToArray = original.toCharArray();
 
-        for (char c : originalToArray) {
-            if (Character.isUpperCase(c)) {
-                tempString.append(", ");
-                tempString.append(Character.toLowerCase(c));
-            } else {
-                tempString.append(c);
+        if(original.equals(original.toUpperCase())) {
+            return original;
+        } else {
+            for (char c : originalToArray) {
+                if (Character.isUpperCase(c)) {
+                    tempString.append(", ");
+                    tempString.append(Character.toLowerCase(c));
+                } else {
+                    tempString.append(c);
+                }
             }
+            return tempString.toString();
         }
-
-        return tempString.toString();
     }
-
 }
