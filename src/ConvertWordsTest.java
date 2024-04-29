@@ -34,5 +34,13 @@ public class ConvertWordsTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    public void testMixedUpperCaseAndNumbers() {
+        String original = "recupera10Primeiros";
+        String expected = "recupera, 10, primeiros";
+        String result = ConvertWords.converterCamelCase(original);
+        assertEquals(expected, result);
+    }
+
 
 }
