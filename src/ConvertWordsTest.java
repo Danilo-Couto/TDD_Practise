@@ -26,4 +26,13 @@ public class ConvertWordsTest {
         assertEquals(original, result);
     }
 
+    @Test
+    public void testMixedUpperCase() {
+        String original = "numeroCPFContribuinte";
+        String expected = "numero, CPF, contribuinte";
+        String result = ConvertWords.converterCamelCase(original);
+        assertEquals(expected, result);
+    }
+
+
 }
