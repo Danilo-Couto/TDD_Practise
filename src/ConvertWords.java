@@ -1,8 +1,18 @@
 public class ConvertWords {
 
-    // 5o caso: converte string que mistura numeros e uppercases
+    // 6o caso: throw erros if StartWithNumber and EspecialChars
     public static String converterCamelCase(String original) {
+        if (Character.isDigit(original.charAt(0))) {
+            throw new StartWithNumberException("Inválido → não deve começar com números");
+        }
+
         char[] originalToArray = original.toCharArray();
+
+        for (char c: originalToArray) {
+            if (!Character.isAlphabetic(c) && !Character.isDigit(c)) {
+                throw new EspecialCharsException(" Inválido → caracteres especiais não são permitidos, somente letras e números");
+            }
+        }
 
         if(original.equals(original.toUpperCase())) {
             return original;
@@ -36,5 +46,6 @@ public class ConvertWords {
             return tempString.toString();
         }
     }
+
 
 }

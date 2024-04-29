@@ -1,5 +1,6 @@
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ConvertWordsTest {
 
@@ -42,5 +43,20 @@ public class ConvertWordsTest {
         assertEquals(expected, result);
     }
 
+    @Test(expected = StartWithNumberException.class)
+    public void testStartWithNumber() {
+        String original = "10Primeiros";
+        ConvertWords.converterCamelCase(original);
+    }
+
+
+    @Test
+    public void testEspecialChars() {
+        String original = "nome#Composto";
+        try {
+            ConvertWords.converterCamelCase(original);
+            fail();
+        } catch (EspecialCharsException ignored) {};
+    }
 
 }
