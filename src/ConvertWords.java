@@ -1,13 +1,13 @@
 public class ConvertWords {
 
-    // refatoração completa
+    // refatoração completa substituindo if statements por polimorfismo
     public static String converterCamelCase(String original) {
         char[] originalToArray = original.toCharArray();
 
         checkFirstChar(original);
         checkForSpecialCharacters(originalToArray);
 
-        if(original.equals(original.toUpperCase())) {
+        if (original.equals(original.toUpperCase())) {
             return original;
         } else {
             StringBuilder tempString = new StringBuilder();
@@ -18,34 +18,29 @@ public class ConvertWords {
 
     private static void convertOriginal(char[] originalToArray, StringBuilder tempString) {
         char nextChar = originalToArray[1];
-        boolean firstOcurrence = true;
+        State firstOcurrenceState = new State(true);
+
+        CharacterConverter converter;
 
         for (int i = 0; i < originalToArray.length; i++) {
-            if (i+1 < originalToArray.length) nextChar = originalToArray[i+1];
+            if (i + 1 < originalToArray.length) nextChar = originalToArray[i + 1];
 
             char actualChar = originalToArray[i];
-            char lowerCaseChar = Character.toLowerCase(actualChar);
 
             if (Character.isUpperCase(actualChar) || Character.isDigit(actualChar)) {
-                if((Character.isUpperCase(nextChar) || Character.isDigit(actualChar)) && firstOcurrence) {
-                    tempString.append(", ").append(originalToArray[i]);
-                    firstOcurrence = false;
-                } else if (Character.isUpperCase(nextChar) && !firstOcurrence) {
-                    tempString.append(originalToArray[i]);
-                } else {
-                    tempString.append(", ").append(lowerCaseChar);
-                }
+                converter = new UpperCaseOrDigitConverter(firstOcurrenceState);
             } else {
-                tempString.append(originalToArray[i]);
+                converter = new LowerCaseConverter();
             }
+
+            converter.processCharacter(actualChar, nextChar, tempString);
         }
     }
 
-
     private static void checkForSpecialCharacters(char[] originalToArray) {
-        for (char c: originalToArray) {
+        for (char c : originalToArray) {
             if (!Character.isLetterOrDigit(c)) {
-                throw new EspecialCharsException(" Inválido → caracteres especiais não são permitidos, somente letras e números");
+                throw new EspecialCharsException("Inválido → caracteres especiais não são permitidos, somente letras e números");
             }
         }
     }
@@ -55,6 +50,5 @@ public class ConvertWords {
             throw new StartWithNumberException("Inválido → não deve começar com números");
         }
     }
-
 
 }

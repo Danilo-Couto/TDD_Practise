@@ -1,4 +1,5 @@
 import org.junit.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -56,7 +57,8 @@ public class ConvertWordsTest {
         try {
             ConvertWords.converterCamelCase(original);
             fail();
-        } catch (EspecialCharsException ignored) {};
+        } catch (EspecialCharsException ignored) {
+        }
     }
 
 }
